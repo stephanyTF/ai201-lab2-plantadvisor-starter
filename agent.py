@@ -1,4 +1,5 @@
 import json
+from urllib import response
 from groq import Groq
 from config import GROQ_API_KEY, LLM_MODEL, MAX_TOOL_ROUNDS
 from tools import lookup_plant, get_seasonal_conditions
@@ -139,34 +140,35 @@ def run_agent(user_message: str, history: list) -> str:
 
     messages.append({"role": "user", "content": user_message})
 
-    #2. Call the LLM with messages and TOOL_DEFINITIONS
-    response = _client.chat.completions.create( #didn't had underscore previously, added it to match the client definition at the top
-    model=LLM_MODEL,
-    messages=messages,
-    tools=TOOL_DEFINITIONS,
-    tool_choice="auto",
-    )
+    #2. (Tool Loop) Call the LLM with messages and TOOL_DEFINITIONS
+    
+    for _ in range(MAX_TOOL_ROUNDS):
+        response = _client.chat.completions.create( #didn't had underscore previously, added it to match the client definition at the top
+        model=LLM_MODEL,
+        messages=messages,
+        tools=TOOL_DEFINITIONS,
+        tool_choice="auto"
+        )
+        
+        assistant_message = response.choices[0].message
 
-    #3. If the response contains tool_calls:
-    assistant_message = response.choices[0].message
-
-    if not assistant_message.tool_calls:
-        assistant_message.content = "No tool calls. Returning assistant response."
-    else:
+    #3.  If the response contains tool_calls:
+        if not assistant_message.tool_calls:
+            break
         messages.append(assistant_message)
+
         for tool_call in assistant_message.tool_calls:
             tool_name = tool_call.function.name
             tool_args = json.loads(tool_call.function.arguments)
             tool_result = dispatch_tool(tool_name, tool_args)
-
             messages.append({
-                "role": "tool",
-                "tool_call_id": tool_call.id,
-                "content": tool_result,
-            })
+                "role": "tool", 
+                "tool_call_id": tool_call.id, 
+                "content": tool_result})
+        
     
     #4. Return the final text response
-    return assistant_message.content
+    return  "Something went wrong. Please try again."
 
 
      

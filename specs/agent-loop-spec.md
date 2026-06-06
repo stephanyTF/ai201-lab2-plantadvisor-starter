@@ -138,7 +138,7 @@ b.  When the MAX_TOOL_ROUNDS limit is reached, I'll return the final content if 
 *Once the loop exits because there are no more tool calls, how do you extract the text content from the response object? What field holds the string you should return?*
 
 ```
-I would   extract the text content  by calling `dispatch_tool()`, and append the result as a `"tool"` role message. The field that holds the string I need to return is `content`. 
+I would  extract the text content  by calling `dispatch_tool()`, and append the result as a `"tool"` role message. The field that holds the string I need to return is `content`. 
 ```
 
 ---
