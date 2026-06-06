@@ -62,13 +62,13 @@ with gr.Blocks(title="Plant Advisor") as demo:
         with gr.Column(scale=3):
             chatbot = gr.ChatInterface(
                 fn=chat,
-                type="messages",
+                #type="messages", ## ISSUE#1 TEMP SOLVED: COMMENT OUT TYPE? NO NEED??? Doc: https://www.gradio.app/guides/gradio-6-migration-guide   
                 examples=EXAMPLE_QUESTIONS,
                 chatbot=gr.Chatbot(
                     height=520,
                     placeholder="<em>Ask me about your plants...</em>",
                     show_label=False,
-                    type="messages",
+                    #type="messages", ## ISSUE#1 TEMP SOLVED: COMMENT OUT TYPE? NO NEED??? 
                 ),
                 textbox=gr.Textbox(
                     placeholder="e.g. How often should I water my monstera?",
@@ -76,7 +76,7 @@ with gr.Blocks(title="Plant Advisor") as demo:
                     scale=7,
                     submit_btn="Ask",
                 ),
-            )
+            ) 
 
 if __name__ == "__main__":
     demo.launch(
