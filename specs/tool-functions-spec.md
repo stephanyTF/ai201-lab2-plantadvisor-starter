@@ -114,7 +114,8 @@ Yes
 
 **One edge case you discovered while implementing:**
 ```
-[your answer here]
+An edge case would be passing None or and empty string in the plant name since in this version of the code, theren's nothing handling the empty string and it would raise an AttributeError when we try to strip the plant name. 
+
 ```
 
 ---

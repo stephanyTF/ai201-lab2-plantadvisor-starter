@@ -61,23 +61,24 @@ def lookup_plant(plant_name: str) -> dict:
         return {"found": True, "plant": _plant_db[normalized_name]}
 
     #3. Check for display name match
-    for plant in _plant_db.items():
+    #for _, plant in _plant_db.items(): #improve later, maybe we don't need items
+    for plant in _plant_db.values():
         if plant.get("display_name", "").strip().lower() == normalized_name:
-            return {"found": True, "name": plant}
-    
+            return {"found": True, "plant": plant}
+
     #4. Check for alias match
-    for plant in _plant_db.items():
+    #for _, plant in _plant_db.items():
+    for plant in _plant_db.values():
         aliases = plant.get("aliases", [])
         for alias in aliases:
             if alias.strip().lower() == normalized_name:
-                return {"found": True, "name": plant}
+                return {"found": True, "plant": plant}
 
-
-    # return {
-    #     "found": False,
-    #     "name": plant_name,
-    #     "message": "Plant lookup not yet implemented. Complete Milestone 1.",
-    # }
+    return {
+        "found": False,
+        "name": plant_name,
+        "message": f"No plant found matching '{plant_name}'. Try the plant's common name, scientific name, or an alias.",
+    }
 
 
 def get_seasonal_conditions(season: str | None = None) -> dict:
