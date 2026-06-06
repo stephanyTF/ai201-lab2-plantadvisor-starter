@@ -70,7 +70,12 @@ likely match for clean user input. Aliases are the broadest net, so they go last
 *Aliases are stored as a list of strings. How will you check if the normalized input matches any alias in the list? Write your approach in pseudocode or plain English.*
 
 ```
-[your answer here]
+I'll make sure the input is normalized by lowercasing and stripping any white spaces. Then I can check if the input exists in the plant's alias list. I'll most likely use an any() with a generator because it's more efficient to search and stop once its found the first match. 
+
+Example: 
+< check if any alias in the list, when lowercased, equals normalized > 
+
+
 ```
 
 ---
@@ -80,7 +85,15 @@ likely match for clean user input. Aliases are the broadest net, so they go last
 *When a plant isn't found, the agent will read your message and use it to decide what to tell the user. Write the exact string you'll return — make it useful to the agent, not just to a human reading logs.*
 
 ```
-[your answer here]
+The string for the agent in the case a plant is not found:
+
+"No plant matching '{normalized}' was found in the database. 
+The database covers common houseplants by key, display name, and aliases. 
+Possible reasons: misspelling, uncommon name, 
+or the plant is not in the database. Ask the user to verify 
+the name or try an alternate name."
+
+
 ```
 
 ---
@@ -91,12 +104,12 @@ likely match for clean user input. Aliases are the broadest net, so they go last
 
 **Test: does `"devil's ivy"` return the pothos entry?**
 ```
-[yes / no — if no, describe what happened]
+Yes
 ```
 
 **Test: does `"SNAKE PLANT"` return the snake plant entry?**
 ```
-[yes / no — if no, describe what happened]
+Yes
 ```
 
 **One edge case you discovered while implementing:**
