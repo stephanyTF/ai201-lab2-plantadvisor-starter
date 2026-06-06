@@ -122,7 +122,13 @@ for tool_call in assistant_message.tool_calls:
 *The loop should stop when: (a) the LLM returns a response with no tool calls, OR (b) the MAX_TOOL_ROUNDS limit is reached. Describe how you will detect each condition and what you will return in each case.*
 
 ```
-[your answer here]
+
+a. To detect when an LLM returns a response with no tool calls, I'll access it by calling the choices[0] and checking its 'tool_calls' attribute
+ `choices` list. If there's no tools from either the plant or seasaons, then I'll return the final content. 
+
+b.  When the MAX_TOOL_ROUNDS limit is reached, I'll return the final content if available or a message saying that there was a maximum round limit reached and the LLM should indicate to the user that theh system had run into a timeout and to please try again if possible.
+
+
 ```
 
 ---
@@ -132,7 +138,7 @@ for tool_call in assistant_message.tool_calls:
 *Once the loop exits because there are no more tool calls, how do you extract the text content from the response object? What field holds the string you should return?*
 
 ```
-[your answer here]
+I would   extract the text content  by calling `dispatch_tool()`, and append the result as a `"tool"` role message. The field that holds the string I need to return is `content`. 
 ```
 
 ---
