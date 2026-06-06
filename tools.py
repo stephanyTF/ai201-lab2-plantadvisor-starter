@@ -53,6 +53,14 @@ def lookup_plant(plant_name: str) -> dict:
     Before writing code, complete the lookup_plant section of specs/tool-functions-spec.md.
     """
 
+    #Pre Check:
+    if not plant_name or not isinstance(plant_name, str):
+        return {
+            "found": False,
+            "name": plant_name,
+            "message": "Invalid input. Please provide a valid name for the plant name. (can't be empty)"
+        }
+
     #1. Normalize plant name for matching
     normalized_name = plant_name.strip().lower()
 
