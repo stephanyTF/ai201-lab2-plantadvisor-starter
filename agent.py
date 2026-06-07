@@ -90,7 +90,7 @@ def dispatch_tool(tool_name: str, tool_args: dict) -> str:
     if tool_name == "lookup_plant":
         result = lookup_plant(tool_args["plant_name"])
     elif tool_name == "get_seasonal_conditions":
-        result = get_seasonal_conditions(tool_args.get("season"))
+        result = get_seasonal_conditions(tool_args["season"]) #original used, .get("season")) but said NoneType object has no attribute get, changed to direct access since season is optional and the function can handle None
     else:
         result = {"error": f"Unknown tool: {tool_name}"}
     print(f"  ← Result: {json.dumps(result)[:120]}{'...' if len(json.dumps(result)) > 120 else ''}")
@@ -154,7 +154,8 @@ def run_agent(user_message: str, history: list) -> str:
 
     #3.  If the response contains tool_calls:
         if not assistant_message.tool_calls:
-            break
+            return assistant_message.content #final text response if no tool calls
+        
         messages.append(assistant_message)
 
         for tool_call in assistant_message.tool_calls:

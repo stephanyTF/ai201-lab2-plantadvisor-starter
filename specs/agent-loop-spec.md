@@ -159,11 +159,10 @@ Final response: [brief description]
 **What happens when you ask about a plant that isn't in the database?**
 
 ```
-[describe the behavior you observed]
+The agent says it doesn't have the plant in the database but will give advice based on its memory. 
 ```
 
 **One thing about the tool call API that surprised you:**
 
 ```
-[your answer here]
-```
+It surprised me how the tool call API is able to call multiple function tools.
