@@ -85,7 +85,7 @@ def lookup_plant(plant_name: str) -> dict:
     return {
         "found": False,
         "name": plant_name,
-        "message": f"No plant found matching '{plant_name}'. Try the plant's common name, scientific name, or an alias.",
+        "message": f"No plant found matching '{plant_name}'. Double check its name or if it has an alias. Otherwise, our database might not have it yet!",
     }
 
 
